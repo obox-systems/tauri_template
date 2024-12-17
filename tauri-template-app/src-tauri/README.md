@@ -25,3 +25,7 @@ Some default icons for your app.
 ### `tauri.conf.json`
 
 This file contains configuration of your application. Read more about it in official [docs](https://v2.tauri.app/develop/configuration-files/#tauri-config).
+
+## Android Support
+
+`gen/android` directory contains files required to build app for Android. If you don't need android support remove folder completely.
