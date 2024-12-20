@@ -4,7 +4,7 @@ run-desktop:
 	cargo tauri dev 
 
 run-android:
-	cargo tauri android dev 
+	cargo tauri android dev
 
 build:
 	cargo tauri build $(filter-out $@,$(MAKECMDGOALS))
