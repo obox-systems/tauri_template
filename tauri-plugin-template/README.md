@@ -92,7 +92,7 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
 ```
 
 Makes sure that you have `tauri-build` in deps or `tauri-plugin` has `build` feature enabled.
-Also add identifier of your android or ios project to `init` fn in `mobile` module.
+Also add identifier of your android project to `init` fn in `mobile` module.
 
 ## Remove android support
 
