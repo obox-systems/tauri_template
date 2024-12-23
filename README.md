@@ -36,7 +36,7 @@ Download and install Android Studio from official [website](https://developer.an
 
 Then [configure](https://v2.tauri.app/start/prerequisites/#android) environment for Tauri and Android Studio.
 
-### iOS
+### IOS
 
 You need Xcode and cocoapods installed
 
