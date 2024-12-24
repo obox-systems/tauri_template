@@ -26,6 +26,16 @@ Some default icons for your app.
 
 This file contains configuration of your application. Read more about it in official [docs](https://v2.tauri.app/develop/configuration-files/#tauri-config).
 
-## Android Support
+## Android and IOS Support
 
-`gen/android` directory contains files required to build app for Android. If you don't need android support remove folder completely.
+`gen/android` and `gen/apple` directories contain files required to build apps for Android and IOS. If you don't need android or ios support remove appropriate folder completely.
+
+## Remove android support
+
+Remove android directory from `gen` directory and target_os dependencies from `Cargo.toml`.
+
+Remove the first and the second lines from `src/main.rs` file
+
+## Remove ios support
+
+Remove apple directory from `gen` directory and target_os dependencies from `Cargo.toml`.

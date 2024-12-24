@@ -14,3 +14,5 @@ Build on Linux may [require](https://github.com/tauri-apps/tauri/issues/5175) ad
 - openSUSE Tumbleweed: `libayatana-indicator3-devel`;
 - Ubuntu: `libayatana-appindicator3-dev`;
 - Fedora: `libappindicator-gtk3-devel`.
+
+
