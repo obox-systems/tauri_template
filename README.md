@@ -52,3 +52,20 @@ Run this command from project root(`./tauri-template-app`)
 ```bash
 cargo tauri dev 
 ```
+
+## You don't have macOS to develop on IOS?
+
+You can run macOS from Linux or Windows using [Docker-OSX](https://github.com/sickcodes/Docker-OSX?tab=readme-ov-file#quick-start-docker-osx).
+
+**! IMPORTANT !** Before running docker with macOS make sure to allocate more than 4 GB RAM otherwise you will not be able to use [simulators](https://developer.apple.com/documentation/xcode/running-your-app-in-simulator-or-on-a-device) for testing. 
+
+You can also add more CPU if needed. To do this just add these lines after `docker run -it`.
+```bash
+# 10 GB of RAM and max CPU
+-e RAM=10 \
+-e cpu=max
+```
+
+### Troubleshooting
+
+If you get an issue with GUI, [try this solution](https://www.youtube.com/watch?v=d9vK7H9P-V4), good luck!
