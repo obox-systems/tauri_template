@@ -72,10 +72,10 @@ Then set up WSL distro by default:
 # For example, 'wsl -d Ubuntu'
 wsl -s <DistroName>
 
-# Ensure that you have installed Linux distro
+# Ensure that you have installed Linux distro by default
 ```
 
-After WSL installation go to `C:/Users/Your_Name/.wslconfig` (Create if it doesn't exist) and add nestedVirtualization=true to the end of file. The result should be like this:
+After WSL installation go to `C:/Users/Your_Name/.wslconfig` (Create if it doesn't exist) and add `nestedVirtualization=true` to the end of file. The result should be like this:
 ```bash
 [wsl2]
 nestedVirtualization=true
@@ -102,7 +102,7 @@ INFO: /dev/kvm exists
 KVM acceleration can be used
 ```
 
-Now it is time to install [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/) if you have not done it before.
+Now you can leave WSL using `Ctrl + D ` or command `exit`. And it is time to install [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/) if you have not done it before.
 
 After installation, go to Settings and check these 2 boxes:
 
@@ -111,52 +111,55 @@ General -> "Use the WSL2 based engine"
 Resources -> WSL Integration -> "Enable integration with my default WSL distro"
 ```
 
-
-Then, you'll need QEMU and some other dependencies on your host:
+Okay, finally you can run docker-osx, just run this script:
 ```bash
-sudo apt install  \
-  qemu-system  \
-  qemu-kvm  \
-  libvirt-clients  \
-  libvirt-daemon-system  \
-  bridge-utils  \
-  virt-manager  \
-  libguestfs-tools  \
-  x11-apps -y
+wsl -e ./install-windows-macos.sh
+
+# You can set RAM or CPU using '-e' flag for greater perfomance, by default they are: RAM=6, CPU=Haswell-noTSX
+
+# Example `wsl -e ./install-windows-macos.sh -e RAM=10` 
 ```
 
-**! Pay Attention !**
+You have to wait a little bit and after installation your command line will be like this: 
 
-Finally, you can run Docker to install macOS. There 
+![Your Command Line](./imgs/before-enter.png)
 
-7. Finally, run Docker to install macOS:
+Then type `Enter` and you will be in (qemu) mode:
+
+![Your Command Line](./imgs/after-enter.png)
+
+Type command
 ```bash
-docker run -i  \
- --device /dev/kvm  \
- -p 5999:5999  \
- -p 5998:5998  \
- -v /tmp/.X11-unix:/tmp/.X11-unix  \
- -e "DISPLAY=${DISPLAY:-:0.0}"  \
- -e EXTRA="-display none -vnc 0.0.0.0:99,password=on"  \
- -e GENERATE_UNIQUE=true  \
- -e CPU='Haswell-noTSX'  \
- -e RAM=6  \
- -e CPUID_FLAGS='kvm=on,vendor=GenuineIntel,+invtsc,vmware-cpuid-freq=on'  \
- -e MASTER_PLIST_URL='https://raw.githubusercontent.com/sickcodes/osx-serial-generator/master/config-custom-sonoma.plist'  \
- -e SHORTNAME=sonoma  \
- sickcodes/docker-osx:latest
+change vnc password <your password>
 ```
 
+![Your Command Line](./imgs/change-password.png)
 
-**! IMPORTANT !** Before running docker with macOS make sure to allocate more than 4 GB RAM otherwise you will not be able to use [simulators](https://developer.apple.com/documentation/xcode/running-your-app-in-simulator-or-on-a-device) for testing. 
+Don't type a strong password, it's not super important
 
-You can also add more CPU if needed. To do this just add these lines after `docker run -it`.
-```bash
-# 10 GB of RAM and max CPU
--e RAM=10 \
--e cpu=max
-```
+Now, install [RealVNC Viewer](https://www.realvnc.com/en/connect/download/viewer/windows/) if you have not done it before. Open it and enter `localhost:5999`
 
-### Troubleshooting
+![Your Command Line](./imgs/launch-vnc.png)
 
-If you get an issue with GUI, [try this solution](https://www.youtube.com/watch?v=d9vK7H9P-V4), good luck!
+Then enter passwrod which you set before.
+
+After you will have this:
+
+![Your Command Line](./imgs/install-macOS.png)
+
+Enter `macOS Base System` -> Enter `Disk Utility` -> Choose the bigest one -> Click on `Erase` -> Enter name of youe disk and continue.
+
+Go back and click on `Reinstall macOS Sonoma`
+
+After you agree with all therms, chose erased disk and wait untill macOS installed. It is going to take about 2 hours.
+
+Congratulations you have just run macOS on Windows!
+
+## How to start installed container?
+
+
+### How to start on Linux:
+
+[Try this official Docker-OSX guide](https://github.com/sickcodes/Docker-OSX?tab=readme-ov-file#quick-start-docker-osx)
+
+Good luck!
