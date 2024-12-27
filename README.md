@@ -38,11 +38,10 @@ Then [configure](https://v2.tauri.app/start/prerequisites/#android) environment 
 
 ### IOS
 
-You need Xcode and cocoapods installed
+Run this script root directory(.) to install minimal required dependencies
 
-*Note*: run this command to install cocoapods
 ```bash
-brew install cocoapods
+./install_mac_dep.sh
 ```
 
 ## Run project
