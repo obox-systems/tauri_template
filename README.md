@@ -102,7 +102,7 @@ INFO: /dev/kvm exists
 KVM acceleration can be used
 ```
 
-Now you can leave WSL using `Ctrl + D ` or command `exit`. And it is time to install [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/) if you have not done it before.
+Now you can leave WSL using `Ctrl + D ` or via command `exit`. And now it is time to install [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/) if you have not done it before.
 
 After installation, go to Settings and check these 2 boxes:
 
@@ -147,7 +147,7 @@ After you will have this:
 
 ![Your Command Line](./imgs/install-macOS.png)
 
-Enter `macOS Base System` -> Enter `Disk Utility` -> Choose the bigest one -> Click on `Erase` -> Enter name of youe disk and continue.
+Enter `macOS Base System` -> Enter `Disk Utility` -> Choose the bigest one -> Click on `Erase` -> Enter name of your disk and continue.
 
 Go back and click on `Reinstall macOS Sonoma`
 
