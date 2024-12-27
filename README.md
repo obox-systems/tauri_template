@@ -157,6 +157,12 @@ Congratulations you have just run macOS on Windows!
 
 ## How to start installed container?
 
+Just run this command:
+```bash
+wsl -e docker start -i -a <DOCKER_ID>
+
+# Example: 'wsl -e docker start -i -a b91f2377d848ba46e7a7e97c8bf02734c9775af36fd94da26fd70054083b8e50' 
+```
 
 ### How to start on Linux:
 
