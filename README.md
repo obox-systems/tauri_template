@@ -55,7 +55,98 @@ cargo tauri dev
 
 ## You don't have macOS to develop on IOS?
 
-You can run macOS from Linux or Windows using [Docker-OSX](https://github.com/sickcodes/Docker-OSX?tab=readme-ov-file#quick-start-docker-osx).
+You can run macOS from Linux or Windows using `Docker-OSX`.
+
+### How to start on Windows:
+
+Ensure that you have Windows 11 installed.
+
+Install [WSL](https://learn.microsoft.com/en-us/windows/wsl/) if you have not done it before. Run these commands from cmd
+```bash
+wsl --install
+wsl --update
+```
+
+Then set up WSL distro by default:
+```bash
+# For example, 'wsl -d Ubuntu'
+wsl -s <DistroName>
+
+# Ensure that you have installed Linux distro
+```
+
+After WSL installation go to `C:/Users/Your_Name/.wslconfig` (Create if it doesn't exist) and add nestedVirtualization=true to the end of file. The result should be like this:
+```bash
+[wsl2]
+nestedVirtualization=true
+``` 
+
+Run WSL
+```bash
+wsl
+```
+
+
+Install `cpu-checker` and then run `kvm-ok` to ensure that you can use kvm
+```bash
+# installing cpu-checker to be able run 'kvm-ok' command
+sudo apt install cpu-checker
+
+# Ensure that we can use kvm
+kvm-ok
+```
+
+Your output should be like this:
+```bash
+INFO: /dev/kvm exists
+KVM acceleration can be used
+```
+
+Now it is time to install [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/) if you have not done it before.
+
+After installation, go to Settings and check these 2 boxes:
+
+```bash
+General -> "Use the WSL2 based engine"
+Resources -> WSL Integration -> "Enable integration with my default WSL distro"
+```
+
+
+Then, you'll need QEMU and some other dependencies on your host:
+```bash
+sudo apt install  \
+  qemu-system  \
+  qemu-kvm  \
+  libvirt-clients  \
+  libvirt-daemon-system  \
+  bridge-utils  \
+  virt-manager  \
+  libguestfs-tools  \
+  x11-apps -y
+```
+
+**! Pay Attention !**
+
+Finally, you can run Docker to install macOS. There 
+
+7. Finally, run Docker to install macOS:
+```bash
+docker run -i  \
+ --device /dev/kvm  \
+ -p 5999:5999  \
+ -p 5998:5998  \
+ -v /tmp/.X11-unix:/tmp/.X11-unix  \
+ -e "DISPLAY=${DISPLAY:-:0.0}"  \
+ -e EXTRA="-display none -vnc 0.0.0.0:99,password=on"  \
+ -e GENERATE_UNIQUE=true  \
+ -e CPU='Haswell-noTSX'  \
+ -e RAM=6  \
+ -e CPUID_FLAGS='kvm=on,vendor=GenuineIntel,+invtsc,vmware-cpuid-freq=on'  \
+ -e MASTER_PLIST_URL='https://raw.githubusercontent.com/sickcodes/osx-serial-generator/master/config-custom-sonoma.plist'  \
+ -e SHORTNAME=sonoma  \
+ sickcodes/docker-osx:latest
+```
+
 
 **! IMPORTANT !** Before running docker with macOS make sure to allocate more than 4 GB RAM otherwise you will not be able to use [simulators](https://developer.apple.com/documentation/xcode/running-your-app-in-simulator-or-on-a-device) for testing. 
 
