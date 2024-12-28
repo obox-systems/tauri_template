@@ -163,6 +163,15 @@ wsl -e docker start -i -a <DOCKER_ID>
 # Example: 'wsl -e docker start -i -a b91f2377d848ba46e7a7e97c8bf02734c9775af36fd94da26fd70054083b8e50' 
 ```
 
+## Install dependencies for iOS
+
+After installation, clone this repo to your macOS and run this script:
+```bash
+./install-mac-dep.sh
+```
+
+It will install dependencies for iOS development.
+
 ### How to start on Linux:
 
 [Try this official Docker-OSX guide](https://github.com/sickcodes/Docker-OSX?tab=readme-ov-file#quick-start-docker-osx)
