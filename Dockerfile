@@ -27,6 +27,10 @@ ENV ANDROID_HOME=/studio-data/Android
 ENV PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$PATH
 ENV ANDROID_EMULATOR_USE_SYSTEM_LIBS=1
 
+# RUN touch /etc/environment
+# RUN echo 'export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"' >> /etc/environment
+# RUN echo 'export PATH="/usr/bin/versions/node/v22.13.0/bin:$PATH"' >> /etc/environment
+
 COPY . /home/android/tauri-template
 COPY scripts/android/51-android.rules /etc/udev/rules.d/51-android.rules
 
@@ -39,4 +43,5 @@ RUN chmod +x /usr/local/bin/build-apk.sh
 
 WORKDIR /home/android/tauri-template
 
+# CMD ["bash", "/usr/local/bin/docker-entrypoint.sh" ]
 ENTRYPOINT [ "/usr/local/bin/docker-entrypoint.sh" ]

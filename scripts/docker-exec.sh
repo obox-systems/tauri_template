@@ -36,26 +36,11 @@ while [ $# -gt 0 ]; do
 done
 
 if [ "$BUILD" -eq 1 ]; then
-  if docker ps -a --filter "name=$CONTAINER_NAME" | grep -q "$CONTAINER_NAME"; then
-    echo "Deleting old container..."
-    docker rm -f "$CONTAINER_NAME"
-  else
-    echo "No existing container named $CONTAINER_NAME to delete."
-  fi
 
   echo "Building Dockerfile..."
   docker build -t android-dev .
 
-  echo "Running just built docker image..."
-  docker run --name "$CONTAINER_NAME" android-dev
-fi
-
-if docker ps -a --filter "name=$CONTAINER_NAME" | grep -q "$CONTAINER_NAME"; then
-  echo "Starting $CONTAINER_NAME ..."
-  docker start "$CONTAINER_NAME"
-else
-  echo "Container $CONTAINER_NAME doesn't exist"
 fi
 
 echo "Execute $COMMAND_PATH in $CONTAINER_NAME..."
-docker exec -it "$CONTAINER_NAME" sh -c "$COMMAND_PATH"
+docker run --rm --name "$CONTAINER_NAME" android-dev bash "$COMMAND_PATH"

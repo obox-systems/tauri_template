@@ -1,5 +1,7 @@
 #!/bin/bash
 set -eux
 
-cd /home/android/tauri-template
-cargo tauri android build --apk
+export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
+export PATH="/usr/bin/versions/node/v22.13.0/bin:$PATH"
+
+cargo tauri android build --apk -d
