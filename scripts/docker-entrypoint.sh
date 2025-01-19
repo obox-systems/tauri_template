@@ -38,6 +38,8 @@ cd ..
 # Tauri CLI
 cargo install tauri-cli --version "^2.0.0" --locked
 
+exec "$@"
+
 # DEBUG_LOOP=1
 
 # if [[ $DEBUG_LOOP != "" ]]; then

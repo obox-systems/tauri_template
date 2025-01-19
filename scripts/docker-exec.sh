@@ -43,4 +43,4 @@ if [ "$BUILD" -eq 1 ]; then
 fi
 
 echo "Execute $COMMAND_PATH in $CONTAINER_NAME..."
-docker run --rm --name "$CONTAINER_NAME" android-dev bash "$COMMAND_PATH"
+docker run --rm --name "$CONTAINER_NAME" android-dev "$COMMAND_PATH"

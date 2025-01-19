@@ -43,5 +43,4 @@ RUN chmod +x /usr/local/bin/build-apk.sh
 
 WORKDIR /home/android/tauri-template
 
-# CMD ["bash", "/usr/local/bin/docker-entrypoint.sh" ]
 ENTRYPOINT [ "/usr/local/bin/docker-entrypoint.sh" ]
