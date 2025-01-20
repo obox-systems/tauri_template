@@ -1,7 +1,7 @@
 FROM rust:1.84
 
 # Tauri System Dependencies
-RUN apt update && apt install -y \
+RUN apt-get update && apt-get install -y \
     sudo \
     libwebkit2gtk-4.1-dev \
     libsoup-3.0-dev \
@@ -14,8 +14,17 @@ RUN apt update && apt install -y \
     libssl-dev \
     libayatana-appindicator3-dev \
     librsvg2-dev \
-    && \
-    apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    libxkbfile1 \
+    libglu1-mesa \
+    libpulse0 \
+    libnss3 \
+    libxi6 \
+    libxrender1 \
+    libxtst6 \
+    libxcursor1 \
+    libxrandr2 \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Node.js
 ARG NODE_URL=https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh
