@@ -35,14 +35,32 @@ while [ $# -gt 0 ]; do
 done
 
 if [ "$BUILD" -eq 1 ]; then
+  if docker ps -a --format '{{.Names}}' | grep -q "^${CONTAINER_NAME}\$"; then
+    echo "Deleting existing container..."
+    docker rm -f "$CONTAINER_NAME"
+  fi
 
-  echo "Building Dockerfile..."
+  echo "Building Dockerfile."
   docker build -t android-dev .
 
-fi
-
-echo "Execute $COMMAND_PATH in $CONTAINER_NAME..."
-docker run --rm \
+  echo "Running docker container."
+  docker run \
            --device /dev/kvm \
            --name "$CONTAINER_NAME" \
            android-dev "$COMMAND_PATH"
+else
+  if docker ps -a --format '{{.Names}}' | grep -q "^${CONTAINER_NAME}\$"; then
+    running=$(docker inspect -f '{{.State.Running}}' "$CONTAINER_NAME" 2>/dev/null)
+    if [ "$running" = "true" ]; then
+      echo "Container '$CONTAINER_NAME' is already running. Executing command..."
+      docker exec "$CONTAINER_NAME" "$COMMAND_PATH"
+    else
+      echo "Container '$CONTAINER_NAME' is stopped (exited). Starting container..."
+      docker start "$CONTAINER_NAME"
+      docker exec "$CONTAINER_NAME" "$COMMAND_PATH"
+    fi
+  else
+    echo "Container '$CONTAINER_NAME' does not exist. Please run with --build first."
+    exit 1
+  fi
+fi
