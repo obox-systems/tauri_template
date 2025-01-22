@@ -6,11 +6,10 @@ if [ -z "$1" ]; then
   exit 1
 fi
 
+BUILD=0
 CONTAINER_NAME=$1
 COMMAND=$2
 COMMAND_PATH="/usr/local/bin/run-android.sh"
-BUILD=0
-
 
 if [[ "$COMMAND" != "run-android" && "$COMMAND" != "build-apk" ]]; then
   echo "Invalid command: $COMMAND. Valid commands are 'run-android' or 'build-apk'."
@@ -43,4 +42,7 @@ if [ "$BUILD" -eq 1 ]; then
 fi
 
 echo "Execute $COMMAND_PATH in $CONTAINER_NAME..."
-docker run --rm --device /dev/kvm --name "$CONTAINER_NAME" android-dev "$COMMAND_PATH"
+docker run --rm \
+           --device /dev/kvm \
+           --name "$CONTAINER_NAME" \
+           android-dev "$COMMAND_PATH"
